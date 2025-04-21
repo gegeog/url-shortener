@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/gegeog/url-shortener/internal/http-server/handlers/redirect"
+	"github.com/gegeog/url-shortener/internal/http-server/handlers/save"
 	"github.com/gegeog/url-shortener/internal/storage/memstorage"
 )
 
@@ -16,7 +17,7 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
-	// mux.HandleFunc(`POST /`, saveHandler.New(s))
+	mux.HandleFunc(`POST /`, save.New(s))
 	mux.HandleFunc(`GET /{id}`, redirect.New(s))
 
 	if err := http.ListenAndServe(`:8080`, mux); err != nil {
